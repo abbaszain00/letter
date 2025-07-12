@@ -4,20 +4,22 @@
 body {
   margin: 0;
   font-family: 'Press Start 2P', cursive;
-background-image: image-set(
-  url('images/roses-bg.avif') type("image/avif"),
-  url('images/roses-bg.png') type("image/png")
-);
-  background-repeat: repeat;
-  background-size: 120px; /* or adjust to taste */
+  background: linear-gradient(135deg, #FFB6C1, #FFE4E1); /* Nice gradient instead of roses initially */
   color: #111;
   min-height: 100vh;
   overflow-x: hidden;
   image-rendering: pixelated;
+  transition: background 1s ease; /* Smooth transition when roses appear */
 }
 
+/* Roses background class - applied after envelope opens */
+body.roses-active {
+  background-image: url('/images/roses-bg.jpg');
+  background-repeat: repeat;
+  background-size: 200px;
+}
 
-/* ------------------ COVER / GIFT ------------------ */
+/* ------------------ COVER / ENVELOPE ------------------ */
 .cover {
   position: fixed;
   inset: 0;
@@ -29,27 +31,169 @@ background-image: image-set(
   animation: fadeIn 1.2s ease both;
 }
 
-.gift {
-  background: none;
-  border: none;
+/* ------------------ ENVELOPE ANIMATION (CROSSFADE EFFECT) ------------------ */
+.envelope-container {
+  position: relative;
+  width: 400px;
+  height: 300px;
   cursor: pointer;
-  transition: transform 0.4s ease;
-  width: 96px;
-  height: 96px;
-  background-image: url('images/gift-pixel.png');
-  background-size: cover;
+  transform: scale(1);
+  transition: transform 0.3s ease;
 }
 
-.gift:hover {
-  transform: scale(1.1) rotate(-3deg);
+.envelope-container:hover {
+  transform: scale(1.05);
 }
 
-@keyframes popOpen {
-  0%   { transform: scale(1);   }
-  40%  { transform: scale(1.4); }
-  60%  { transform: scale(0.9); }
-  80%  { transform: scale(1.1); }
-  100% { transform: scale(14); opacity: 0; }
+/* Envelope images */
+.envelope-closed, .envelope-open {
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  image-rendering: pixelated;
+  transition: all 1.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+  top: 0;
+  left: 0;
+}
+
+.envelope-closed {
+  background-image: url('images/envelope-close.png');
+  opacity: 1;
+  z-index: 2;
+}
+
+.envelope-open {
+  background-image: url('images/envelope-open.png');
+  opacity: 0;
+  z-index: 1;
+  /* transform: scale(0.95); */
+}
+
+/* Opening animation */
+.envelope-container.opening .envelope-closed {
+  opacity: 0;
+  transform: scale(1.05);
+}
+
+.envelope-container.opening .envelope-open {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hearts floating effect */
+.heart {
+  position: absolute;
+  color: #FF69B4;
+  font-size: 20px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+}
+
+.heart.animate {
+  animation: floatHeart 2s ease-out forwards;
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-30px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-60px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Envelope shadow */
+.envelope-container::before {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+  width: 360px;
+  height: 40px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 50%;
+  filter: blur(10px);
+  z-index: 0;
+}
+
+/* Instructions */
+.instruction {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: #666;
+  animation: pulse 2s infinite;
+  text-align: center;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* Sparkles */
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #FFD700;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.sparkle.animate {
+  animation: sparkleAnim 1.5s ease-out forwards;
+}
+
+@keyframes sparkleAnim {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Success message */
+.success-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.95);
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #333;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 20;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.success-message.show {
+  opacity: 1;
 }
 
 /* ------------------ LETTER AREA ------------------ */

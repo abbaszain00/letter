@@ -11,24 +11,25 @@
 </head>
 <body>
 
-  <!-- PRESENT COVER -->
-  <div id="cover" class="cover">
-    <!-- replace the emoji with an SVG or PNG if you prefer -->
-    <button id="gift" class="gift" aria-label="Open the gift">🎁</button>
+<!-- ENVELOPE COVER -->
+<div id="cover" class="cover">
+  <div class="envelope-container" id="envelope">
+    <div class="instruction">Click to open your love letter <3</div>
+    <div class="envelope-closed" id="envelopeClosed"></div>
+    <div class="envelope-open" id="envelopeOpen"></div>
   </div>
+  
+  <div class="success-message" id="successMsg">
+    <div>💖 Letter Opened! 💖</div>
+    <div style="font-size: 0.6rem; margin-top: 10px;">Loading your full love letter...</div>
+  </div>
+</div>
 
   <!-- MAIN LOVE‑LETTER CONTENT (initially hidden) -->
   <main id="letterWrapper" class="letter-wrapper hidden">
     <h1>Happy Anniversary, My Love 💌</h1>
 
     <section id="typewriter" class="letter"></section>
-
-    <!-- add as many sections as you like below -->
-    <section class="gallery">
-      <!-- example image row -->
-      <img src="your-photo-1.jpg" alt="Us at the park" />
-      <img src="your-photo-2.jpg" alt="Video‑call smile" />
-    </section>
   </main>
 
   <script src="script.js"></script>
