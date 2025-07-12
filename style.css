@@ -1,0 +1,107 @@
+/* ------------------ GENERAL LAYOUT ------------------ */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Press Start 2P', cursive;
+background-image: image-set(
+  url('images/roses-bg.avif') type("image/avif"),
+  url('images/roses-bg.png') type("image/png")
+);
+  background-repeat: repeat;
+  background-size: 120px; /* or adjust to taste */
+  color: #111;
+  min-height: 100vh;
+  overflow-x: hidden;
+  image-rendering: pixelated;
+}
+
+
+/* ------------------ COVER / GIFT ------------------ */
+.cover {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 240, 246, 0.95);
+  z-index: 100;
+  animation: fadeIn 1.2s ease both;
+}
+
+.gift {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+  width: 96px;
+  height: 96px;
+  background-image: url('images/gift-pixel.png');
+  background-size: cover;
+}
+
+.gift:hover {
+  transform: scale(1.1) rotate(-3deg);
+}
+
+@keyframes popOpen {
+  0%   { transform: scale(1);   }
+  40%  { transform: scale(1.4); }
+  60%  { transform: scale(0.9); }
+  80%  { transform: scale(1.1); }
+  100% { transform: scale(14); opacity: 0; }
+}
+
+/* ------------------ LETTER AREA ------------------ */
+.letter-wrapper {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 80px 25px 150px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+  backdrop-filter: blur(3px);
+}
+
+h1 {
+  color: #c2185b;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.letter {
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  min-height: 200px;
+  padding-bottom: 40px;
+}
+
+/* ------------------ IMAGES ------------------ */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.gallery img {
+  width: 45%;
+  image-rendering: pixelated;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* ------------------ EFFECTS ------------------ */
+.hidden { opacity: 0; pointer-events: none; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
