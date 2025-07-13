@@ -4,6 +4,20 @@ Even across the distance, I feel your presence every day.
 You are my favourite person, my calm in chaos, my smile on bad days.
 
 This site is only a small way to say: I love you. Deeply, completely, endlessly.
+This site is only a small way to say: I love you. Deeply, completely, endlessly.
+This site is only a small way to say: I love you. Deeply, completely, endlessly.
+This site is only a small way to say: I love you. Deeply, completely, endlessly.
+This site is only a small way to say: I love you. Deeply, completely, endlessly.
+This site is only a small way to say: I love you. Deeply, completely, endlessly.
+This site is only a small way to say: I love you. Deeply, completely, endlessly.
+This site is only a small way to say: I love you. Deeply, completely, endlessly.
+This site is only a small way to say: I love you. Deeply, completely, endlessly.
+This site is only a small way to say: I love you. Deeply, completely, endlessly.
+This site is only a small way to say: I love you. Deeply, completely, endlessly.
+This site is only a small way to say: I love you. Deeply, completely, endlessly.
+This site is only a small way to say: I love you. Deeply, completely, endlessly.
+This site is only a small way to say: I love you. Deeply, completely, endlessly.
+This site is only a small way to say: I love you. Deeply, completely, endlessly.
 
 💖 Yours always,
 [Your Name]`;
@@ -79,6 +93,14 @@ function startTypewriter() {
       typewriterArea.textContent += letterText.charAt(i);
       i++;
       setTimeout(type, typeSpeed);
+    } else {
+      // Typing complete
+      typewriterArea.classList.add('typing-complete');
+      
+      // Add some final sparkles
+      for (let j = 0; j < 10; j++) {
+        setTimeout(() => createSparkle(), j * 200);
+      }
     }
   }
   type();
